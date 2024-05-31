@@ -4,12 +4,13 @@ import secrets, random, hashlib
 print("".join([ hashlib.md5(str((x << 7 ) ^ secrets.random_secret_number).encode()).hexdigest() for x in secrets.flag ]))
 #99f2e803248f5923faccd5b74eeac9fdd1fe9485be324217b5d180d04dfcb87f2df9c7c23d39de0710ec45bb2348a2870f0e3fa24833955ae7be0fc6ff2540f89cca8d684240e24dd459f2d439fae30c45fa9beaa3d9ea2ad7a09cd68b6a33aeabe24565b93dbc1d1dda3429adcc926c0c2ecd5cb4ba7dae4f84402c5ebe87f566a18289224fcaca68694426ede468a05638b0be1bce3838bca75e14cfe0818ffcc4103fcaf40d4720096ea4ed0fa2a7b241600bbbbc8cfbba760be3f23083bcd8c3fc67def99b7b61593abe7920f3c0790303191a1deaa93200d05f786405ee4315fce0913a690ba14db3bd46a1c89ab241600bbbbc8cfbba760be3f23083bc45fa9beaa3d9ea2ad7a09cd68b6a33ae4dd3479a7d8a13e22518a22202f4da7b4f2663dcc42d6c7746733d2c9bcb669db6ac971e55bee482346a196c2a82365ad21f9fc127b9849fddfaf59354916108d8c3fc67def99b7b61593abe7920f3c051b2395680b833ec1f7b1a44a0bafe05348bd749ca9ee5f03b04b8a2f0befc79fcc4103fcaf40d4720096ea4ed0fa2a7d21f9fc127b9849fddfaf5935491610814a2750f09d061e1744e376eeaae46088bdb666d756911879b3f77e93d945da30f0e3fa24833955ae7be0fc6ff2540f8d21f9fc127b9849fddfaf59354916108b4a2d301ddc8a3e8c500551900bdffd44dd3479a7d8a13e22518a22202f4da7b638c5071774c3ddd8b600c3fe1b137890f0e3fa24833955ae7be0fc6ff2540f831bbeb867c695411485ebf8a2f748b6b
 
-
+'''
 important : 
 format flag : PlayGroundsCTF{}
+'''
 
 
-//////////////////////////////////////////////////////////////////////////
+'''
 
 
 in order to decrypt the cipher, we need to understand what the encryption file does
@@ -35,10 +36,9 @@ the code that found the secret number is commented out in the code
 
 now that we have the secret number, we can brute force the remaining characters by trying every possible character from chr(1) to chr(256) and concluding that a character is part of the flag if the hash that i got by trying its value matched the hash of the cipher text.
 
-the flag is: PlayGroundsCTF{Cr4ck_Th1s_K3y_B4by}
 
 
-//////////////////////////////////////////////////////////////////////////
+'''
 
 
 import secrets
@@ -59,10 +59,9 @@ import random as rand
 from Crypto.Cipher import AES
 import hashlib
 from Crypto.Util.Padding import pad, unpad
-
-
 import hashlib
-'''
+
+''' to find the secret number:
 compare = "99f2e803248f5923faccd5b74eeac9fd"
 
 data = ord('P')
@@ -103,7 +102,7 @@ for compare in c_list:
 print(f)
 
 
-//////////////////////////////////////////////////////////////////////////
+'''
 
 
 the flag is: PlayGroundsCTF{Cr4ck_Th1s_K3y_B4by}
