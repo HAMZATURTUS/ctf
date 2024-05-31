@@ -1,4 +1,6 @@
+'''
 CHALLENGE SOURCE:
+'''
 
 import secrets, random, hashlib
 print("".join([ hashlib.md5(str((x << 7 ) ^ secrets.random_secret_number).encode()).hexdigest() for x in secrets.flag ]))
