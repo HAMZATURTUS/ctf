@@ -233,5 +233,15 @@ print("Flag: " + o)
 r.close()
 
 '''
+picoCTF{bad_1d3a1
+picoCTF{bad_1d3a2
+picoCTF{bad_1d3a3
+picoCTF{bad_1d3a4
+picoCTF{bad_1d3a5
+picoCTF{bad_1d3a5!
+picoCTF{bad_1d3a5"
+picoCTF{bad_1d3a5#
+
+and it's working nicely
 
 '''
