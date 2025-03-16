@@ -1,4 +1,6 @@
-# for this challenge, we connect to a server that runs:
+'''
+for this challenge, we connect to a server that runs:
+'''
 
 #!/usr/bin/env python3
 
