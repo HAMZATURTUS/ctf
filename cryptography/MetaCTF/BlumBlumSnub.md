@@ -166,5 +166,37 @@ each state that isnt state1 is equal to the previous state squared mod n.
 ```
 
 
-One way to go back to state2 from state6 is by finding the square root mod n 4 times. But we cannot do that since state6 is not given to us mod n. get_hint() chooses between returning state6 mod p or mod q, which are significantly smaller than n.
+One way to go back to state2 from state6 is by finding the square root mod n 4 times. But that is impossible since state6 is not given to us mod n. get_hint() chooses between returning state6 mod p or mod q, which are significantly smaller than n.
+
+In order to go back to state2, we need a state whos value we have mod n. We can use the Chinese Remainder Theorem to do so:
+
+```
+state6 -> state7 (mod q)
+We do not know this for a fact, but assume that state7 was given mod q. It does not matter which factor is used as the modulus for state6.
+
+state6 ^ 2 = state7
+state6 ^ 2 mod p = state7 mod p
+
+Now we have state7 mod q and state7 mod p. Chinese remainder theorem can find the value of state7 mod p*q or state7 mod n
+```
+
+### BlumBlumSnub.py
+
+```py
+p = getPrime(512)
+q = p + 1
+while not isPrime(q):
+    q += 1
+```
+
+Finding p and q is easy since the server generates them to be super close numbers and they can be found with n alone using Fermat's factorization theorem:
+
+```py
+
+from sympy import factorint
+
+n = 60761075864951778151843175586891297199106292331778578013793830262848283588702813151713942487284865190370283582771344734150007458900396815633421697214921142554682849558212946889044091844348762923703298098818126598992986952727995034644855451141126964674177555221511389616511433062976086877728614231987782747763
+print(factorint(n)) # factorint supports Fermat's theorem
+
+```
 
