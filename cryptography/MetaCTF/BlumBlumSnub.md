@@ -2,6 +2,7 @@
 ### Author: Saleh Elnaji
 
 Category: Cryptography
+
 Difficulty: Medium
 
 ## Source:
@@ -89,4 +90,81 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+Connecting to the server:
+
+```bash
+  `·.¸ `·  ¸.·´\`·¸)
+FOR SECURITY REASONS (NOT A HINT I SWEAR) : de569ae4e9471872314f0970dc43a877829a44617da8ff1f6aa67477fa566fc1
+
+      /`·.¸
+     /¸...¸`:·
+ ¸.·´  ¸   `·.¸.·´)
+: © ):´;      ¸  {
+ `·.¸ `·  ¸.·´\`·¸)
+     `\´´\¸.·´
+     
+Welcome to Aqaba!
+
+n: 52004979879787872904572830981193648623735649824909880379954617345102421835108325670268618239977932041523265473373333191743304900780154863819258072421637308289293327206386301324203822902642469116895460154056270469303515396889079704619978145241651376091666171601904244784368845645846480534814716708180605790013
+ct: 4f2b8d495ccecdd4f60f2cd9a573030a0d7c086df12766fff9ae2d1e7d1ce39198c634029a2979fe086851709b86dab00bd6be
+
+1. Get hint
+2. Snub
+
+Choose an option: 1
+Hint: 7567ad08ccd803cae284fd6f25a1052e9434fb99f540b85d484b1fbda40d450af34b1b25cdc3e4e38de03d62a51663ec96a12fe8f5a896a97b1510625f2879ed
+
+1. Get hint
+2. Snub
+
+Choose an option: 1
+Hint: 24039c326e63f9080e788bffa1c802623e739e3450cc1a1f72389ffd26a0086851fde2c9c345545fe687658dbca78ff6bda371b8b4ebe6585e39aa69a48365f1
+
+1. Get hint
+2. Snub
+
+Choose an option: 1
+Hint: 4900fd820808932971d176c87ec33b31284a05794ea4939f3c8a9d6b8d8a1bd5a9497abd184875872fe3dbc141285574203d872b0f97032da2806700c5de176d
+
+1. Get hint
+2. Snub
+
+Choose an option: 1
+Hint: 8038c7cb2a8c1e3110607014c42a6e3ece7e162f7e635a5380413fb69aaa2839236615b55310d1c91feef1eec020f5729d862694d496bbb105c9744f228825
+
+1. Get hint
+2. Snub
+
+Choose an option: 1
+Hint: 35c15b545bbeb502670fb57a13131132a62e14e35ffad4c481543db782f00591ee7a89a7063daad18870a012583c2f226c3d6427932f01759e079f63481e4abf
+
+1. Get hint
+2. Snub
+
+Choose an option: 2
+Exiting...
+```
+
+## Analysis:
+
+Get hint refers to the "state" in the BlumBlumSnub class. Each time get hint is called the state is squared modulus n.
+
+Recovering the original random state is essential to finding the flag as we have the value of the flag xored with the state.
+
+Let's visualise what the server does to the state since randomly generating and make a link between that and the hints we have:
+
+```
+state1 = Random state generated
+state2 = blum_blum_shub.next() called in get_flag(), used as the encryption key in the xor
+state3 = blum_blum_shub.next() called in for loop (i = 0)
+state4 = blum_blum_shub.next() called in for loop (i = 1)
+state5 = blum_blum_shub.next() called in for loop (i = 2)
+state6 = get_hint() called if user inputs 1
+
+each state that isnt state1 is equal to the previous state squared mod n.
+```
+
+
+One way to go back to state2 from state6 is by finding the square root mod n 4 times. But we cannot do that since state6 is not given to us mod n. get_hint() chooses between returning state6 mod p or mod q, which are significantly smaller than n.
 
