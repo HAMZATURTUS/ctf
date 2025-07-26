@@ -150,7 +150,7 @@ Exiting...
 
 Get hint refers to the "state" in the BlumBlumSnub class. Each time get hint is called the state is squared modulus n.
 
-Recovering the original random state is essential to finding the flag as we have the value of the flag xored with the state.
+Recovering the original random state is essential to finding the flag as we only have the value of the flag xored with the second state.
 
 Let's visualise what the server does to the state since randomly generating and make a link between that and the hints we have:
 
