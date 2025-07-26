@@ -4,7 +4,7 @@ Category: Cryptography
 
 Difficulty: Easy
 
-## Source:
+## Source
 
 <img width="340" height="329" alt="image" src="https://github.com/user-attachments/assets/e38240ac-8659-4319-9f9f-6f8f036f202d" />
 
@@ -66,7 +66,7 @@ transitions['101'] = transitions['010'] = '1'
 
 Transitions is used in some loop that continually changes new_row based on each 3 consecutive bits inside it. After the loop is done, the final new_row is returned.
 
-## Solution:
+## Solution
 
 The code may seem really big and scary but xor has many properties that can make this very easy to solve. Such properties can be found either by doing some research or by experimenting with your own script. I opted for the second option and came across this realization:
 
