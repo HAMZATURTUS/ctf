@@ -226,6 +226,8 @@ This function does a couple checks on the user's input, then it takes out the fl
 0040176b    }
 ```
 
+## Solution
+
 A solution I had in mind was to create an "aviation_encrypt()" and a "phonetic_encode()" by reversing my given functions and running the hardcoded var_58 in reverse, to get the expected input. Revering aviation_decrypt was pretty easy as it is just xors some text with a key:
 
 ### solve.py
