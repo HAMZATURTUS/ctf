@@ -63,7 +63,7 @@ puts("I cannot reveal it!"I cannot reveal it!
 +++ exited (status 0) +++
 ```
 
-The server was looking for us to have "P37R4" as the first input.
+The program was looking for us to have "P37R4" as the first input.
 
 ```bash
 > ltrace ./Esrever
