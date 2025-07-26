@@ -85,7 +85,7 @@ void approach_control(void)
 }
 ```
 
-The intended behavior of the binary takes an input and immediately prints “LANDING ABORTED”. The decompilation does show an interesting function though:
+The intended behavior of the binary is to take an input and immediately  print “LANDING ABORTED”. The decompilation does show an interesting  function though: 
 
 ```c
 void clear_to_land(long param_1,long param_2,long param_3,long param_4,long param_5,char *param_6)
