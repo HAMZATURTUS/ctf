@@ -2,7 +2,7 @@
 
 category: rev eng
 
-difficulty: Medium
+difficulty: Easy
 
 ## Source
 
@@ -150,25 +150,25 @@ We are mostly concerned with the call of validate_flight_plan(), as it seems to 
 00401b89        
 00401c01        if (*(uint8_t*)arg1 != 0x4d || arg1[1] != 0x45 || arg1[2] != 0x54 || arg1[3] != 0x41
 00401c01                || arg1[4] != 0x43 || arg1[5] != 0x54 || arg1[6] != 0x46
-00401c01                || arg1[7] != 0x7b)
+00401c01                || arg1[7] != 0x7b) // first 8 characters = "METACTF{"
 00401c1a            return 0;
 00401c1a        
-00401c1a        if (arg1[0x1f] != 0x7d)
+00401c1a        if (arg1[0x1f] != 0x7d) // last character = '}'
 00401c26            return 0;
 00401c26        
 00401c53        char var_38[0x17];
 00401c53        
-00401c53        for (int32_t i_1 = 0; i_1 <= 0x16; i_1 += 1)
-00401c53            var_38[(int64_t)i_1] = arg1[(int64_t)i_1 + 8];
+00401c53        for (int32_t i_1 = 0; i_1 <= 0x16; i_1 += 1)       // var38 = the stuff between {} in the flag.
+00401c53            var_38[(int64_t)i_1] = arg1[(int64_t)i_1 + 8]; // the text insie those brackets is 0x17 characters long
 00401c53        
 00401c55        char var_21_1 = 0;
 00401c60        phonetic_decode(&var_38);
-00401c76        aviation_decrypt(&var_38, 0x17, 0x17);
+00401c76        aviation_decrypt(&var_38, 0x17, 0x17); // decode the user's input
 00401c8f        int64_t var_58;
 00401c8f        __builtin_strncpy(&var_58, "#~&# &\'v:m#\" $r:t&n\' ::", 0x17);
 00401ca5        int32_t var_14_1 = 0;
 00401ca5        
-00401cd5        while (true)
+00401cd5        while (true) // check if the user's decoded input is equal to var_58
 00401cd5        {
 00401cd5            if (var_14_1 > 0x16)
 00401cd7                return 1;
@@ -183,3 +183,131 @@ We are mostly concerned with the call of validate_flight_plan(), as it seems to 
 00401a73    }
 ```
 
+This function does a couple checks on the user's input, then it takes out the flag format and runs its test on the text inside {}. It runs a function called phonetic_decode() then aviation_decrypt() on the user's input, and checks if the final value is equal to the hardcoded value stored in var_58 ("#~&# &\'v:m#\" $r:t&n\' ::").
+
+```c
+004017b6    int64_t phonetic_decode(void* arg1)
+
+004017b6    {
+004017b6        int32_t var_c = 0;
+004018c3        char result;
+004018c3        
+004018c3        while (true)
+004018c3        {
+004018c3            result = *(uint8_t*)((char*)arg1 + (int64_t)var_c);
+004018c3            
+004018c8            if (!result)
+004018c8                break;
+004018c8            
+004017f0            if (*(uint8_t*)((char*)arg1 + (int64_t)var_c) > 0x60
+004017f0                    && *(uint8_t*)((char*)arg1 + (int64_t)var_c) <= 0x7a)
+0040183b                *(uint8_t*)((char*)arg1 + (int64_t)var_c) = (char)((
+0040183b                    (int32_t)*(uint8_t*)((char*)arg1 + (int64_t)var_c) - 0x54) % 0x1a) + 0x61; // do this if the character is within a-z
+004017f0            else if (*(uint8_t*)((char*)arg1 + (int64_t)var_c) > 0x40
+004017f0                    && *(uint8_t*)((char*)arg1 + (int64_t)var_c) <= 0x5a)
+004018b0                *(uint8_t*)((char*)arg1 + (int64_t)var_c) = (char)((
+004018b0                    (int32_t)*(uint8_t*)((char*)arg1 + (int64_t)var_c) - 0x34) % 0x1a) + 0x41; // do this if the character is within A-Z, otherwise leave the character as it is
+004018b0            
+004018b2            var_c += 1;
+004018c3        }
+004018c3        
+004018d1        return result;
+004017b6    }
+
+0040176b    int64_t aviation_decrypt(void* arg1, int32_t arg2, char arg3)
+
+0040176b    {
+0040176b        int32_t i;
+0040176b        // all this does is xor the input text (of length 0x17) with 0x17
+004017b0        for (i = 0; i < arg2; i += 1)
+004017b0            *(uint8_t*)((char*)arg1 + (int64_t)i) ^= arg3;
+004017b0        
+004017b5        return i;
+0040176b    }
+```
+
+A solution I had in mind was to create an "aviation_encrypt()" and a "phonetic_encode()" by reversing my given functions and running the hardcoded var_58 in reverse, to get the expected input. Revering aviation_decrypt was pretty easy as it is just xors some text with a key:
+
+### solve.py
+```py
+from pwn import *
+
+def aviation_encrypt(text, length = 0x17, key = 0x17):
+    return xor(text, key)
+```
+
+I had some trouble reversing phonetic_decode() until I realised, since every character is being handled seperately, brute forcing would be an easier solution.
+
+### solve.py
+```py
+from pwn import *
+
+def aviation_encrypt(text, length = 0x17, key = 0x17):
+    return xor(text, key)
+
+hardcoded = b"#~&# &\'v:m#\" $r:t&n\' ::"
+
+encrypted = aviation_encrypt(hardcoded) # "4i14710a-z4573e-c1y07--"
+
+def phonetic_decode(character):
+
+    if character > 0x60 and character <= 0x7a:
+        return ((character - 0x54) % 0x1a) + 0x61
+
+    elif character > 0x40 and character <= 0x5a:
+        return ((character - 0x34) % 0x1a) + 0x41
+    
+    else: return character
+
+flag = ""
+# try possible characters for the flag. if phonetic_decode(the character) matched the character in "encrypted", it exists in the flag
+
+for i in range(len(encrypted)):
+    for j in range(256):
+        if(phonetic_decode(j) == encrypted[i]):
+            flag += chr(j)
+            break
+
+print(flag) # 4v14710n-m4573r-p1l07--
+```
+
+To check if this flag is correct, we can run the program again and input it as the clearance code:
+
+```bash
+> ./maydaymayday 
+✈️ ═══════════════════════════════════════════════════════════ ✈️🚁
+║                 AVIATION SECURITY SYSTEM                    ║
+║              "Flight Control Access Terminal"              ║
+║                                                             ║
+║  🛩️  Unauthorized access to aircraft systems detected      ║
+║  📡  Please provide valid pilot clearance code             ║
+✈️ ═══════════════════════════════════════════════════════════ ✈️🚁
+
+📡 Radar scanning \
+🔍 Scanning for hostile aircraft...
+⏱️  Analyzing flight patterns [██████████████████████████████] 100%
+🎯 Enter pilot clearance code: METACTF{4v14710n-m4573r-p1l07--}
+
+🔄 Processing clearance request....
+🎮 ATC: Cleared for takeoff
+📡 Calculating navigation bearing...
+📍 Current bearing: -161.07 degrees
+🔐 Validating flight plan [██████████████████████████████] 100%
+
+🎉 ═══════════════════════════════════════ 🎉
+🎉 ═══════════════════════════════════════ 🎉
+🎉 ═══════════════════════════════════════ 🎉
+   ✅ CLEARANCE GRANTED! WELCOME ABOARD!
+   🛫 Flight systems now accessible
+   🏆 Mission accomplished, pilot!
+   📋 Your clearance code: METACTF{4v14710n-m4573r-p1l07--}
+🎉 ═══════════════════════════════════════ 🎉
+🎉 ═══════════════════════════════════════ 🎉
+🎉 ═══════════════════════════════════════ 🎉
+```
+
+## Flag
+
+```
+METACTF{4v14710n-m4573r-p1l07--}
+```
