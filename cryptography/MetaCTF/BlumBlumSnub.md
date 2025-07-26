@@ -10,7 +10,7 @@ Difficulty: Medium
 > ls
 BlumBlumSnub.py
 ```
-### BlumBlumSnub.py
+### BlumBlumSnub.py:
 ```python
 from Crypto.Util.number import *
 from pwn import xor
@@ -184,7 +184,7 @@ state6 ^ 2 mod p = state7 mod p
 Now we have state7 mod q and state7 mod p. Chinese remainder theorem can find the value of state7 mod p*q or state7 mod n
 ```
 
-### BlumBlumSnub.py
+### BlumBlumSnub.py:
 
 ```py
 p = getPrime(512)
@@ -263,7 +263,7 @@ for i in range(6): # iterate from state8 -> state2
 
 Given a list of all possible keys, we can simply try to decrypt with each one and find which plaintext contains the string "CTF".
 
-### solve.py
+### solve.py:
 ```py
 from sympy import factorint
 
