@@ -4,7 +4,7 @@ Category: PWN
 
 Difficulty: Easy
 
-## Source:
+## Source
 
 ```bash
 > ls
@@ -17,7 +17,7 @@ runway: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked,
 
 [source](https://drive.google.com/file/d/10m5K1-J_yc1u6RQJGdSERKnAORDjRM5b/view)
 
-## Analysis:
+## Analysis
 
 The source files provided a binary and a flag.txt. This indicates the server is running with the real flag.txt in the same directory so we can assume that the challenge involves finding the real flag by reaching it.
 
@@ -170,7 +170,7 @@ rdi has the value of rax in <+147>, rax has the value of [rbp-0xa0] in <+130> an
 param_6 = r9
 ```
 
-## Solution:
+## Solution
 
 In order to find the flag, we need to overwrite param_1 - param_5 to be 1, 2, 3, 4, 5 respectively, find a way to get r9 to point to the string “flag.txt”.
 
