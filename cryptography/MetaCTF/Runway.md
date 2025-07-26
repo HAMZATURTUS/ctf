@@ -195,7 +195,7 @@ Output:
 
 One way to redirect the binary towards running these snippets of code is to overflow the return pointer to match of these addresses. When the binary runs one of these lines for instance “pop rdi”, we can put a value directly afterwards to insert into rdi. After all parameters are ready, we can place the address of the win function and get the flag.
 
-### solve.py
+### solve.py:
 
 ```py
 from pwn import *
@@ -259,7 +259,7 @@ pwndbg is pretty generous with the information it can give you about a crashed b
 
 As previously stated, if the program executes “pop rdi”, rdi takes the first value it sees on the stack. We can overwrite all of our registers knowing this information
 
-### solve.py
+### solve.py:
 
 ```py
 from pwn import *
