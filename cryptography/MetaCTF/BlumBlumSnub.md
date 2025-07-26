@@ -216,7 +216,7 @@ state = [0x7567ad08ccd803cae284fd6f25a1052e9434fb99f540b85d484b1fbda40d450af34b1
 print(pow(state[0], 4, p) == state[2]) # (state[0] ^ 2) = state[1] -> state[1] ^ 2 mod p == state[2], printed False
 print(pow(state[0], 4, q) == state[2]) # (state[0] ^ 2) = state[1] -> state[1] ^ 2 mod q == state[2], printed True -> state8 is given as mod q
 
-# this test printed two falses when testing state7, so state8 has been used.
+# this test printed two falses when testing state7, so state8 has been used instead.
 
 ```
 
