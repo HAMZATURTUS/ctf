@@ -228,7 +228,7 @@ This function does a couple checks on the user's input, then it takes out the fl
 
 ## Solution
 
-A solution I had in mind was to create an "aviation_encrypt()" and a "phonetic_encode()" by reversing my given functions and running the hardcoded var_58 in reverse, to get the expected input. Revering aviation_decrypt was pretty easy as it is just xors some text with a key:
+A solution I had in mind was to create an "aviation_encrypt()" and a "phonetic_encode()" by reversing my given functions and running the hardcoded var_58 in reverse, to get the expected input. Reversing aviation_decrypt was pretty easy as it is just xors some text with a key:
 
 ### solve.py
 ```py
@@ -238,7 +238,7 @@ def aviation_encrypt(text, length = 0x17, key = 0x17):
     return xor(text, key)
 ```
 
-I had some trouble reversing phonetic_decode() until I realised, since every character is being handled seperately, brute forcing would be an easier solution.
+I had some trouble reversing phonetic_decode() until I realised that phonetic_encode() handles every character is being separately so brute force would be an easier approach.
 
 ### solve.py
 ```py
