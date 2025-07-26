@@ -150,7 +150,7 @@ Looking at a bit of the disassembly of clear_to_land will clear this up a little
    0x00000000004012cc <+150>:	call   0x401130 <fopen@plt>
 ```
 
-The disassembler compares 1 with [rbp-0x78] in line <+51>. [rbp - 0x78] is the value in rdi as shown by line <+15>, so param_1 is rdi. Similarly, the registers that represent param_2 - param_5 can be found:
+The disassembler compares 1 with [rbp-0x78] in line <+51>. [rbp -  0x78] is the value in rdi as shown by line <+15>, so param_1 must be rdi. The registers that represent param_2 - param_5 can also be found this way: 
 
 ```
 param_1 = rdi
