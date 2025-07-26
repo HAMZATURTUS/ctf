@@ -4,7 +4,7 @@ Category: Cryptography
 
 Difficulty: Medium
 
-## Source:
+## Source
 <img width="448" height="471" alt="image" src="https://github.com/user-attachments/assets/a67bbbe1-120b-4534-8f20-29f2b19626e5" />
 
 ### main.py:
@@ -71,7 +71,7 @@ b30f4d846cd009c8f5b892b534e647e1b30f4d846cd009c8f5b892b534e647e1
 Appears more than once in the output. This is because the server has encrypted several blocks, each made of 16 ‘a’s. The other blocks have either been contaminated by the flag or the padding.
 Note that the block is made of 32 characters instead of 16. This is because hex represents each byte as 2 digits.
 
-## Solution:
+## Solution
 If the server decided that chksum of some input = 15, then the first block would be made of that input with the last letter being the first letter of the flag
 ```
 assuming the flag is flag{test_flag}
