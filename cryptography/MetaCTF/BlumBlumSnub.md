@@ -5,7 +5,7 @@ Category: Cryptography
 
 Difficulty: Medium
 
-## Source:
+## Source
 ```bash
 > ls
 BlumBlumSnub.py
