@@ -160,7 +160,7 @@ param_4 = rcx
 param_5 = r8
 ```
 
-According to the decompilation, param_6 represents the name of the file we want to open. To find the register it represents, we just need to view the lines before <+150> and see how the registers are organized before “fopen” is called. According to the [linux system call table](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/), rdi represents the address of the name of the file we want to open.
+The decompilation shows that param_6 represents the name of the file we want to open. To find the register it represents, we just need to view the lines before <+150> and see how the registers are organized before “fopen” is called. According to the [linux system call table](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/), rdi represents the address of the name of the file we want to open.
 
 <img width="707" height="221" alt="image" src="https://github.com/user-attachments/assets/94b33d34-bafc-4f1f-ae70-50508dd697c0" />
 
