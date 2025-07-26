@@ -53,7 +53,7 @@ Vector byte: abc
 <<< LANDING ABORTED >>> Return to holding pattern
 ```
 
-Nothing super interesting. Let’s open the file on ghidra
+Just prints some stuff and expects an input, then prints "LANDING ABORTED" for an unsatisfactory input. Let’s open the file on ghidra
 
 ```c
 undefined8 main(void)
