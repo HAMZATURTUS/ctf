@@ -220,7 +220,7 @@ print(pow(state[0], 4, q) == state[2]) # (state[0] ^ 2) = state[1] -> state[1] ^
 
 ```
 
-state[2] is given modulus q. Now to use it and state[2] mod p (= state[0]^2 mod p) to generate state[1] mod n
+State[2] is given modulus q. Now to use it and state[2] mod p to generate state[2] mod n
 
 ```py
 state8_mod_p = pow(state[1], 2, p)
