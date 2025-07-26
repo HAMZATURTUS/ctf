@@ -238,7 +238,7 @@ def aviation_encrypt(text, length = 0x17, key = 0x17):
     return xor(text, key)
 ```
 
-I had some trouble reversing phonetic_decode() until I realised that phonetic_encode() handles each character separately so brute force would be an easier approach.
+I had some trouble reversing phonetic_decode() until I realised that phonetic_encode() processes each character separately so brute force would be an easier approach.
 
 ### solve.py
 ```py
