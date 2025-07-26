@@ -325,4 +325,4 @@ io.interactive()
 Flag: METACTF{TEST_FLAG}
 ```
 
-Worked fine locally, connect to the server using io = remote(’server.name’, port) and run the same script to get the real flag.
+Worked fine locally, connecting to the server using io = remote(’server.name’, port) and running the same script would get the real flag.
